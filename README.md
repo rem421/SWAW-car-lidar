@@ -1,138 +1,125 @@
-# LD Lidar ROS 2 Package
+# Raport z projektu: Platforma jezdna z lidarem
 
-## ROS 2 package for LDRobot LD19 lidar - Based on Nav2 Lifecycle nodes
+Projekt z przedmiotu **Sensory w Aplikacjach Wbudowanych**  
+Kierunek: **Elektronika i Telekomunikacja – Systemy Wbudowane**  
+Rok: I studiów magisterskich  
 
-[Get the Lidar](#get-the-lidar) • [Install](#install-the-node) • [Start the Node](#start-the-node) • [Parameters](#parameters) • [RViz2](#display-scan-on-rviz2) • [Robot Integration](#integrate-the-node-in-your-robot)
+Autorzy:  
+- Maciej Żurek  
+- Michał Glos  
+- Remigiusz Leśny  
 
-This package is designed to work with the DToF 2D Lidar sensor [LD19](https://www.ldrobot.com/product/en/112) made by [LDRobot](https://www.ldrobot.com/en).
+---
 
-## Get the lidar
+## Opis projektu
 
-My lidar (LD19) comes from the [LDRobot kickstarter campaing](https://www.kickstarter.com/projects/ldrobot/ld-air-lidar-360-tof-sensor-for-all-robotic-applications) ended in 2021.
+Celem projektu jest stworzenie autonomicznej platformy jezdnej wyposażonej w lidar, zintegrowanej z ROS2, umożliwiającej m.in. wizualizację danych lidarowych w RViz2 oraz nawigację przy użyciu Navigation2 (Nav2).  
 
-LDRobot then created also an [Indiegogo campaign](https://www.indiegogo.com/projects/ld-air-lidar-tof-sensor-for-robotic-applications--3#/) for the LD19.
+Platforma wykorzystuje sensory LDRobot LDLidar do pomiaru odległości i tworzenia mapy otoczenia w czasie rzeczywistym.  
 
-LDRobot today distributes the Lidar through third-party resellers:
+---
 
-- Waveshare: [LD19](https://www.waveshare.com/wiki/DTOF_LIDAR_LD19)
-- Innomaker: [LD06](https://www.inno-maker.com/product/lidar-ld06/)
-- Other: [Search on Google](https://www.google.com/search?q=ld19+lidar&newwindow=1&sxsrf=ALiCzsb2xd4qTTA78N00mP9-PP5HY4axZw:1669710673586&source=lnms&tbm=shop&sa=X&ved=2ahUKEwjYns78_NL7AhVLVfEDHf2PDk8Q_AUoA3oECAIQBQ&cshid=1669710734415350&biw=1862&bih=882&dpr=1)
+## Wymagania systemowe
 
-## Install the node
+- Ubuntu 22.04 (Jammy Jellyfish)  
+- ROS2 Humble  
 
-The node is designed to work with [ROS 2 Humble](https://docs.ros.org/en/humble/index.html)
+---
 
-Clone the repository in your ROS2 workspace:
+## Instalacja
 
-    cd ~/ros2_ws/src/ #use your current ros2 workspace folder
-    git clone https://github.com/rem421/SWAW-car-lidar.git
+### 1. Aktualizacja systemu
+sudo apt update && sudo apt upgrade -y
+sudo apt autoremove -y
 
-Add dependencies:
+2. Dodanie repozytorium ROS2
 
-    sudo apt install libudev-dev
+sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 
-Install the udev rules
+Dodanie źródła do listy apt:
 
-    cd ~/ros2_ws/src/SWAW-car-lidar/scripts/
-    ./create_udev_rules.sh
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt update
 
-Build the packages:
+3. Instalacja ROS2 Humble Desktop
 
-    cd ~/ros2_ws/
-    rosdep install --from-paths src --ignore-src -r -y
-    colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release
+sudo apt install ros-humble-desktop -y
+sudo apt install ros-dev-tools -y
 
-Update the environment variables:
+4. Konfiguracja środowiska ROS2
 
-    echo source $(pwd)/install/local_setup.bash >> ~/.bashrc
-    source ~/.bashrc
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 
-## Start the node
+5. Instalacja Navigation2 (Nav2)
 
-### Launch file with YAML parameters
+sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup -y
+sudo apt install ros-humble-nav2-util -y
 
-The default values of the [parameters of the node](#parameters) can be modified by editing the file [`ldlidar.yaml`](ldlidar_node/params/ldlidar.yaml).
+6. Instalacja i konfiguracja LDLidar
 
-Open a terminal console and enter the following command to start the node with customized parameters:
+# Utworzenie workspace ROS2
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
 
-    ros2 launch ldlidar_node ldlidar_bringup.launch.py
+# Klonowanie repozytorium LDLidar
+git clone https://github.com/rem421/SWAW-car-lidar
 
-The [`ldlidar_bringup.launch.py`](ldlidar_node/launch/ldlidar_bringup.launch.py) starts a ROS 2 Container, which loads the LDLidar Component as a plugin.
+# Instalacja zależności
+sudo apt install libudev-dev -y
+rosdep install --from-paths . --ignore-src -r -y
 
-The [`ldlidar_bringup.launch.py`](ldlidar_node/launch/ldlidar_bringup.launch.py) script also starts a `robot_state_publisher` node that provides the static TF transform of the 
-LDLidar [`ldlidar_base`->`ldlidar_link`], and provides the ldlidar description in the `/robot_description`.
+# Budowanie workspace
+cd ~/ros2_ws
+colcon build --symlink-install --cmake-args=-DCMAKE_BUILD_TYPE=Release
 
-![TF](./images/ldlidar_tf.png)
+# Konfiguracja środowiska workspace
+echo "source ~/ros2_ws/install/local_setup.bash" >> ~/.bashrc
+source ~/.bashrc
 
-### Lifecycle
+7. Uruchomienie skryptu konfiguracyjnego UDEV (jeśli istnieje)
 
-The `ldlidar` node is based on the [`ROS2 lifecycle` architecture](https://design.ros2.org/articles/node_lifecycle.html), hence it starts in the `UNCONFIGURED` state.
-To configure the node, load all the parameters, establish a connection, and activate the scan publisher, the lifecycle services must be called in sequence.
+cd ~/ros2_ws/src/ldrobot-lidar-ros2/scripts/
 
-Open a new terminal console and enter the following command:
+8. Sprawdzenie dostępnych pakietów ROS2
 
-    ros2 lifecycle set /ldlidar_node configure
+ros2 pkg list | grep nav2
+ros2 pkg list | grep ldlidar
 
-If the node is correctly configured and the connection is established, `Transitioning successful` is returned. If there are errors, `Transitioning failed` is returned. Check the node log for details on any connection issues.
+9. Test komunikacji ROS2
 
-The node is now in the `INACTIVE` state, enter the following command to activate:
+ros2 run demo_nodes_cpp talker &
+ros2 run demo_nodes_py listener
 
-    ros2 lifecycle set /ldlidar_node activate
+10. Przykładowe uruchomienie LDLidar
 
-The node is now activated and the `/ldlidar_node/scan` topic of type `sensor_msgs/msg/LaserScan` is available to be subscribed.
+ros2 launch ldlidar_node ldlidar_bringup.launch.py
 
-#### Launch file with YAML parameters and Lifecycle manager
+Parametry węzła LDLidar
+Parametr	Opis	Przykładowe wartości
+general.debug_mode	Aktywacja komunikatów debug	true / false
+comm.serial_port	Ścieżka portu szeregowego	/dev/ttyUSB0
+comm.baudrate	Prędkość portu szeregowego	115200
+comm.timeout_msec	Timeout komunikacji w ms	1000
+lidar.model	Model lidara	LDLiDAR_LD19
+lidar.rot_verse	Kierunek obrotu	CW / CCW
+lidar.units	Jednostki pomiaru	M / CM / MM
+lidar.frame_id	Nazwa ramki TF	lidar_frame
+lidar.bins	Liczba próbek skanu	0 lub 455
+lidar.range_min	Minimalny dystans	np. 0.12 m
+lidar.range_max	Maksymalny dystans	np. 8.0 m
+lidar.enable_angle_crop	Przycinanie kąta	true / false
+lidar.angle_crop_min	Minimalny kąt przycięcia	np. 0°
+lidar.angle_crop_max	Maksymalny kąt przycięcia	np. 360°
+Wyświetlanie skanu w RViz2
 
-Thanks to the [Nav2](https://navigation.ros.org/index.html) project, you can launch a [`lifecycle_manager`](https://navigation.ros.org/configuration/packages/configuring-lifecycle.html) node that handles the state transitions described above.
-An example launch file, [`ldlidar_with_mgr.launch.py`](ldlidar_node/launch/ldlidar_with_mgr.launch.py), demonstrates how to start the `ldlidar_node` with parameters loaded from the 
-`ldlidar.yaml` file. It also starts the `lifecycle_manager`, configured with the [`lifecycle_mgr.yaml`](ldlidar_node/config/lifecycle_mgr.yaml) file, to automatically manage the 
-lifecycle transitions:
+Aby uruchomić wstępnie skonfigurowaną wizualizację 2D lidara w RViz2:
 
-    ros2 launch ldlidar_node ldlidar_with_mgr.launch.py
+ros2 launch ldlidar_node ldlidar_rviz2.launch.py
 
-The `ldlidar_with_mgr.launch.py` script automatically starts the `ldlidar_node` by including the `ldlidar_bringup.launch.py` launch file.
+Plik ldlidar_rviz2.launch.py uruchamia:
 
-## Parameters
-
-Following the list of node parameters:
-
-- **`general.debug_mode`**: set to `true` to activate debug messages
-- **`comm.serial_port`**: the serial port path
-- **`comm.baudrate`**: the serial port baudrate
-- **`comm.timeout_msec`**: the serial communication timeout in milliseconds
-- **`lidar.model`**: Lidar model [LDLiDAR_LD19]
-- **`lidar.rot_verse`**: The rotation verse. Use clockwise if the lidar is mounted upsidedown. [CW, CCW]
-- **`lidar.units`**: distance measurement units [M, CM, MM]
-- **`lidar.frame_id`**: TF frame name for the lidar
-- **`lidar.bins`**: set to 0 for dinamic scan size according to rotation speed, set to a fixed value [e.g. 455] for compatibility with SLAM Toolbox
-- **`lidar.range_min`**: minimum scan distance
-- **`lidar.range_max`**: maximum scan distance
-- **`lidar.enable_angle_crop`**: enable angle cropping
-- **`lidar.angle_crop_min`**: minimum cropping angle
-- **`lidar.angle_crop_max`**: maximum cropping angle
-
-## Display scan on RViz2
-
-The launch file `ldlidar_rviz2.launch.py` starts the `ldlidar_node` node, the `lifecycle_manager` node, and a preconfigured instance of RViz2 to display the 2D laser scan provided by the LDRobot sensors. This is an example to demonstrate how to correctly setup RViz2 to be used with the `ldlidar_node` node.
-
-Open a terminal console and enter the following command:
-
-    ros2 launch ldlidar_node ldlidar_rviz2.launch.py
-
-![Rviz2](./images/ldlidar_rviz2.png)
-
-## Integrate the LDLidar sensor in your robot
-
-Follow these steps to integrate the LDLidar sensor into your robot configuration:
-
-1. **Provide TF Transform**: Ensure there is a TF transform from `base_link` to `ldlidar_base`, positioned at the center of the lidar scanner base. The `ldlidar_base` -> `ldlidar_link` transform is provided by the `robot_state_publisher` started by the `ldlidar_bringup.launch.py` launch file.
-
-2. **Modify Configuration**: Update the [`ldlidar.yaml`](ldlidar_node/config/ldlidar.yaml) file to match your robot's configuration.
-
-3. **Include Launch File**: Add the [`ldlidar_bringup.launch.py`](ldlidar_node/launch/ldlidar_bringup.launch.py) to your robot's bringup launch file.
-
-4. **Handle Lifecycle**: Properly manage the node's lifecycle. You can use the Nav2 `lifecycle_manager` by including it in your bringup launch file.
-
-5. **Deploy and Test**: Deploy your configuration and test the system to ensure everything is working correctly.
-
-Enjoy your fully integrated lidar system!
+węzeł ldlidar_node
+węzeł lifecycle_manager
+RViz2 z prekonfigurowanym widokiem dla lidara
