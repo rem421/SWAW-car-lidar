@@ -1,0 +1,2 @@
+Invoking command in '/home/rem/ros2_ws/ldrobot-lidar-ros2/build/ldlidar_component': /usr/bin/cmake /home/rem/ros2_ws/ldrobot-lidar-ros2/ldlidar_component -DCMAKE_INSTALL_PREFIX=/home/rem/ros2_ws/ldrobot-lidar-ros2/install/ldlidar_component
+Invoked command in '/home/rem/ros2_ws/ldrobot-lidar-ros2/build/ldlidar_component' returned '1': /usr/bin/cmake /home/rem/ros2_ws/ldrobot-lidar-ros2/ldlidar_component -DCMAKE_INSTALL_PREFIX=/home/rem/ros2_ws/ldrobot-lidar-ros2/install/ldlidar_component

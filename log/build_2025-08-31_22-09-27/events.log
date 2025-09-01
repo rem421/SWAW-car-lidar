@@ -1,0 +1,44 @@
+[0.000000] (-) TimerEvent: {}
+[0.001153] (ldlidar_component) JobQueued: {'identifier': 'ldlidar_component', 'dependencies': OrderedDict()}
+[0.001366] (ldlidar_node) JobQueued: {'identifier': 'ldlidar_node', 'dependencies': OrderedDict([('ldlidar_component', '/home/rem/ros2_ws/ldrobot-lidar-ros2/install/ldlidar_component')])}
+[0.001429] (ldlidar) JobQueued: {'identifier': 'ldlidar', 'dependencies': OrderedDict([('ldlidar_component', '/home/rem/ros2_ws/ldrobot-lidar-ros2/install/ldlidar_component'), ('ldlidar_node', '/home/rem/ros2_ws/ldrobot-lidar-ros2/install/ldlidar_node')])}
+[0.001484] (ldlidar_component) JobStarted: {'identifier': 'ldlidar_component'}
+[0.011278] (ldlidar_component) JobProgress: {'identifier': 'ldlidar_component', 'progress': 'cmake'}
+[0.012090] (ldlidar_component) Command: {'cmd': ['/usr/bin/cmake', '/home/rem/ros2_ws/ldrobot-lidar-ros2/ldlidar_component', '-DCMAKE_INSTALL_PREFIX=/home/rem/ros2_ws/ldrobot-lidar-ros2/install/ldlidar_component'], 'cwd': '/home/rem/ros2_ws/ldrobot-lidar-ros2/build/ldlidar_component', 'env': OrderedDict([('LC_TIME', 'pl_PL.UTF-8'), ('USER', 'rem'), ('LANGUAGE', 'en_US'), ('PT8HOME', '/opt/pt'), ('XDG_SESSION_TYPE', 'x11'), ('STM32CubeMX_PATH', '/home/rem/STM32CubeMX'), ('SHLVL', '1'), ('HOME', '/home/rem'), ('MOZ_ENABLE_WAYLAND', '1'), ('DESKTOP_SESSION', 'ubuntu'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('GTK_MODULES', 'gail:atk-bridge'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('LC_MONETARY', 'pl_PL.UTF-8'), ('SYSTEMD_EXEC_PID', '4708'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('OMF_PATH', '/home/rem/.local/share/omf'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'rem'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('PATH', '/home/rem/.local/bin:/home/rem/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/st/stm32cubeclt:/opt/st/stm32cubeclt/STM32CubeProgrammer/bin:/opt/st/stm32cubeclt/STLink-gdb-server/bin:/opt/st/stm32cubeclt/GNU-tools-for-STM32/bin:/home/rem/.dotnet/tools'), ('GDM_LANG', 'en_US'), ('SESSION_MANAGER', 'local/remLaptop:@/tmp/.ICE-unix/4470,unix/remLaptop:/tmp/.ICE-unix/4470'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/9884f48b_3f56_4d0d_a59c_f921f45a1a16'), ('XDG_MENU_PREFIX', 'gnome-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('LC_ADDRESS', 'pl_PL.UTF-8'), ('DISPLAY', ':0'), ('LC_TELEPHONE', 'pl_PL.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('DOTNET_BUNDLE_EXTRACT_BASE_DIR', '/home/rem/.cache/dotnet_bundle_extract'), ('LANG', 'en_US.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XAUTHORITY', '/home/rem/.Xauthority'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.141'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/rem'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('SHELL', '/usr/bin/fish'), ('LC_NAME', 'pl_PL.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LC_MEASUREMENT', 'pl_PL.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'pl_PL.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('LC_ALL', 'en_US.UTF-8'), ('PWD', '/home/rem/ros2_ws/ldrobot-lidar-ros2/build/ldlidar_component'), ('OMF_CONFIG', '/home/rem/.config/omf'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/home/rem/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('LC_NUMERIC', 'pl_PL.UTF-8'), ('LC_PAPER', 'pl_PL.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800')]), 'shell': False}
+[0.099551] (-) TimerEvent: {}
+[0.200121] (-) TimerEvent: {}
+[0.206142] (ldlidar_component) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.1.0\n'}
+[0.300302] (-) TimerEvent: {}
+[0.379674] (ldlidar_component) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.1.0\n'}
+[0.400475] (-) TimerEvent: {}
+[0.402680] (ldlidar_component) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.500774] (-) TimerEvent: {}
+[0.550454] (ldlidar_component) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.569686] (ldlidar_component) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.571041] (ldlidar_component) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.572145] (ldlidar_component) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.581020] (ldlidar_component) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.600979] (-) TimerEvent: {}
+[0.701549] (-) TimerEvent: {}
+[0.728273] (ldlidar_component) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.747526] (ldlidar_component) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.748225] (ldlidar_component) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.749393] (ldlidar_component) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.751064] (ldlidar_component) StdoutLine: {'line': b'--  * Release Mode\n'}
+[0.751316] (ldlidar_component) StderrLine: {'line': b'\x1b[33mCMake Warning at CMakeLists.txt:52 (message):\n'}
+[0.751517] (ldlidar_component) StderrLine: {'line': b'  * ROS2 distro variable not set.  Trying to figure it out...\n'}
+[0.751672] (ldlidar_component) StderrLine: {'line': b'\n'}
+[0.751850] (ldlidar_component) StderrLine: {'line': b'\x1b[0m\n'}
+[0.754251] (ldlidar_component) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:81 (message):\n'}
+[0.754495] (ldlidar_component) StderrLine: {'line': b'  *** WARNING *** ROS2 distro is unknown.  This package could not work\n'}
+[0.754657] (ldlidar_component) StderrLine: {'line': b'  correctly.\n'}
+[0.754878] (ldlidar_component) StderrLine: {'line': b'\n'}
+[0.755119] (ldlidar_component) StderrLine: {'line': b'\x1b[0m\n'}
+[0.755252] (ldlidar_component) StdoutLine: {'line': b'-- Configuring incomplete, errors occurred!\n'}
+[0.755399] (ldlidar_component) StdoutLine: {'line': b'See also "/home/rem/ros2_ws/ldrobot-lidar-ros2/build/ldlidar_component/CMakeFiles/CMakeOutput.log".\n'}
+[0.764598] (ldlidar_component) CommandEnded: {'returncode': 1}
+[0.804653] (-) TimerEvent: {}
+[0.814693] (ldlidar_component) JobEnded: {'identifier': 'ldlidar_component', 'rc': 1}
+[0.825999] (ldlidar_node) JobSkipped: {'identifier': 'ldlidar_node'}
+[0.826125] (ldlidar) JobSkipped: {'identifier': 'ldlidar'}
+[0.826176] (-) EventReactorShutdown: {}
